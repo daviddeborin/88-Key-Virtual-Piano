@@ -5,8 +5,8 @@ I would like to create a Synthesia-like program that visualizes piano music.
 This project is difficult to describe in words, so I've attached two pictures
 down below to provide a better understanding of what I want to create.
 
-![synthesia.png](An example of Synthesia)
-![imitation.png](A cooler version of Synthesia)
+![An example of Synthesia](synthesia.png)
+![A cooler version of Synthesia](imitation.png)
 
 My program will be able to take piano MIDI files and create visual tutorials out
 of them. The end result will be a VIDEO that looks like something similar
