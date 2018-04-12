@@ -1,6 +1,8 @@
 # Project Proposal
 
 **Project Goal: Piano Visualizer**
+
+
 I would like to create a Synthesia-like program that visualizes piano music.
 This project is difficult to describe in words, so I've attached two pictures
 down below to provide a better understanding of what I want to create.
@@ -30,5 +32,6 @@ appropriate sound.
 - ofxUIMidiMapper
 
 **Other openFrameworks modules**
+
 I plan on using different 2-D graphics modules for the majority of the project.
 If I have time, I may try to play around with some 3-D graphics.
