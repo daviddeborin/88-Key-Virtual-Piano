@@ -1,5 +1,4 @@
 # Project Proposal
-<<<<<<< HEAD
 
 **Project Goal: Piano Visualizer**
 I would like to create a Synthesia-like program that visualizes piano music.
@@ -33,5 +32,3 @@ appropriate sound.
 **Other openFrameworks modules**
 I plan on using different 2-D graphics modules for the majority of the project.
 If I have time, I may try to play around with some 3-D graphics.
-=======
->>>>>>> ac65e8abb3839dc78433e6625a5fb5d4f6ff7a3c
