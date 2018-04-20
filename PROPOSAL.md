@@ -1,37 +1,20 @@
 # Project Proposal
 
-**Project Goal: Piano Visualizer**
+**Project Goal: Piano keyboard**  
 
+I would like to make a piano keyboard that can be played by a computer keyboard.
+I want the piano keyboard to have all 88 keys, and since a standard laptop does
+not have 88 keys, I will allow the user to octave jump and move across the entire
+piano keyboard. In addition, I would like the keys of the keyboard to light up
+when played. I have attached a picture down below that gives a good idea on
+how the piano keyboard will look.  
 
-I would like to create a Synthesia-like program that visualizes piano music.
-This project is difficult to describe in words, so I've attached two pictures
-down below to provide a better understanding of what I want to create.
+![Piano.png](Piano keyboard)
 
-![An example of Synthesia](synthesia.png)
-![A cooler version of Synthesia](imitation.png)
+*Since I still want to create a piano visualizer in the future, extendability will
+be heavily emphasized in this project.*
 
-My program will be able to take piano MIDI files and create visual tutorials out
-of them. The end result will be a VIDEO that looks like something similar
-to the two pictures shown above.
+**openFrameworks Usage:**  
 
-**Example:**
-Let's say I'm not very good at reading sheet music, but I really want to play
-Beethoven's Moonlight Sonata on the piano. What I can do is get a MIDI file of
-Moonlight Sonata, and then input that MDII file into my Synthesia-like program.
-The program would then create a video that takes me through all the notes played
-in Moonlight Sonata. Of course, all the notes will also be accompanied by their
-appropriate sound.
-
-**The openFrameworks sound modules I might use:**
-- ofxCoreMIDI
-- ofxMidi
-- ofxMidiClock
-- ofxMidiFileLoader
-- ofxMidiLab
-- ofxThreadedMidiPlayer
-- ofxUIMidiMapper
-
-**Other openFrameworks modules**
-
-I plan on using different 2-D graphics modules for the majority of the project.
-If I have time, I may try to play around with some 3-D graphics.
+I plan on using different 2-D graphics modules and add-ons for the majority of
+the project. Additionally, I will use some sound add-ons or modules
