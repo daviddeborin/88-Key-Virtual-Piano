@@ -9,7 +9,7 @@ piano keyboard. In addition, I would like the keys of the keyboard to light up
 when played. I have attached a picture down below that gives a good idea on
 how the piano keyboard will look.  
 
-![Piano.png](Piano keyboard)
+![Piano keyboard](Piano.png)
 
 *Since I still want to create a piano visualizer in the future, extendability will
 be heavily emphasized in this project.*
