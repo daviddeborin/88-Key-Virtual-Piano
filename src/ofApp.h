@@ -16,7 +16,7 @@ class ofApp : public ofBaseApp{
 		void mousePressed(int x, int y, int button);
 		void mouseReleased(int x, int y, int button);
 		void mouseEntered(int x, int y);
-		void mouseExited(int x, int y);
+		void mouseExited(int kmx, int y);
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
