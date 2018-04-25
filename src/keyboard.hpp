@@ -9,5 +9,11 @@
 #define keyboard_hpp
 
 #include <stdio.h>
+#include "piano_key.hpp"
+#include "ofMain.h"
+
+class Keyboard {
+    //PianoKey a0()
+};
 
 #endif /* keyboard_hpp */

@@ -9,10 +9,15 @@
 #define piano_key_hpp
 
 #include <stdio.h>
+#include "ofMain.h"
 
 class PianoKey {
 private:
+    ofSoundPlayer key_sound;
     
-}
-
+public:
+    PianoKey(ofSoundPlayer sound_of_key) {
+        key_sound = sound_of_key;
+    }
+};
 #endif /* piano_key_hpp */
