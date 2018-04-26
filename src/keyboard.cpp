@@ -6,3 +6,11 @@
 //
 
 #include "keyboard.hpp"
+
+std::vector<PianoKey> Keyboard::getPianoKeys() {
+    return piano_keys;
+}
+
+
+
+

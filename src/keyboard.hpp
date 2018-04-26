@@ -9,11 +9,16 @@
 #define keyboard_hpp
 
 #include <stdio.h>
+#include <vector>
 #include "piano_key.hpp"
 #include "ofMain.h"
 
 class Keyboard {
-    //PianoKey a0()
+private:
+    std::vector<PianoKey> piano_keys;
+    
+public:
+    std::vector<PianoKey> getPianoKeys();
 };
 
 #endif /* keyboard_hpp */
