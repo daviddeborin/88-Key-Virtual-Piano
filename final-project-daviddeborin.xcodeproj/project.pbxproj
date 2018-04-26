@@ -78,7 +78,6 @@
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		E628D827208EE06A002BC055 /* piano_key.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = piano_key.cpp; sourceTree = "<group>"; };
 		E628D828208EE06A002BC055 /* piano_key.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = piano_key.hpp; sourceTree = "<group>"; };
-		E628D82B208EE0F9002BC055 /* piano_key_sound.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = piano_key_sound.hpp; sourceTree = "<group>"; };
 		E628D82D208EE156002BC055 /* keyboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = keyboard.cpp; sourceTree = "<group>"; };
 		E628D82E208EE156002BC055 /* keyboard.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = keyboard.hpp; sourceTree = "<group>"; };
 		ECF8674C7975F1063C5E30CA /* ofxGuiGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGuiGroup.cpp; path = ../../../addons/ofxGui/src/ofxGuiGroup.cpp; sourceTree = SOURCE_ROOT; };
@@ -172,7 +171,6 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				E628D827208EE06A002BC055 /* piano_key.cpp */,
 				E628D828208EE06A002BC055 /* piano_key.hpp */,
-				E628D82B208EE0F9002BC055 /* piano_key_sound.hpp */,
 				E628D82D208EE156002BC055 /* keyboard.cpp */,
 				E628D82E208EE156002BC055 /* keyboard.hpp */,
 			);
