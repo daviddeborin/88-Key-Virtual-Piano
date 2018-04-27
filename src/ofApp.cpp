@@ -27,27 +27,24 @@ void ofApp::setup() {
     }
     
     // Create the 5 different piano keyboard locations/48-key layouts
-    int count = 0;
     for (int i = 0; i < 88; i++) {
         PianoKey a_key = piano_keyboard.getPianoKeys()[i];
         
-        if (count <= 47) {
+        if (i <= 47) {
             piano_keyboard.getLocation1().push_back(a_key);
         }
-        if (count >= 8 && count <= 55) {
+        if (i >= 8 && i <= 55) {
             piano_keyboard.getLocation2().push_back(a_key);
         }
-        if (count >= 20 && count <= 67) {
+        if (i >= 20 && i <= 67) {
             piano_keyboard.getLocation3().push_back(a_key);
         }
-        if (count >= 32 && count <= 79) {
+        if (i >= 32 && i <= 79) {
             piano_keyboard.getLocation4().push_back(a_key);
         }
-        if (count >= 40 && count <= 87) {
+        if (i >= 40 && i <= 87) {
             piano_keyboard.getLocation5().push_back(a_key);
         }
-        
-        count++;
     }
     
     
@@ -67,13 +64,6 @@ void ofApp::setup() {
     //    A_flat_0.play();
     
     
-    
-    
-    
-    
-    
-    
-}
 
 //--------------------------------------------------------------
 void ofApp::update(){

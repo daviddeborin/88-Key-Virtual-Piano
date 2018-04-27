@@ -12,6 +12,9 @@
 #include <vector>
 #include "piano_key.hpp"
 #include "ofMain.h"
+#include "ofApp.h"
+
+std::vector<PianoKey> piano_keys;
 
 class Keyboard {
 private:
@@ -32,7 +35,6 @@ public:
     std::vector<PianoKey> getLocation4();
     std::vector<PianoKey> getLocation5();
 
-    
 };
 
 #endif /* keyboard_hpp */
