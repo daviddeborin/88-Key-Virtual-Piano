@@ -6,3 +6,7 @@
 //
 
 #include "piano_key.hpp"
+
+ofSoundPlayer PianoKey::getKeysound() {
+    return key_sound;
+}

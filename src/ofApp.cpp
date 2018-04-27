@@ -6,6 +6,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup() {
+    location_layout = 3; // Default (center) layout
     
     // create 88 sound objects
     for (int i = 0; i < 88; i++) {
@@ -67,18 +68,52 @@ void ofApp::createKeyboardLocations() {
     }
 }
 
+//--------------------------------------------------------------
 void ofApp::establishComputerKeys(string computer_keys) {
-    for (int i = 0; i < computer_keys.length(); ++i) {
-        all_computer_keys.push_back(computer_keys[i]);
-    };
+    for (auto key: computer_keys) {
+        all_computer_keys.push_back(key);
+    }
+}
+
+//--------------------------------------------------------------
+std::vector<PianoKey> ofApp::getCurrentPianoLayout() {
+    switch (location_layout) {
+        case 1:
+            return piano_keyboard.getLocation1();
+        case 2:
+            return piano_keyboard.getLocation2();
+        case 3:
+            return piano_keyboard.getLocation3();
+        case 4:
+            return piano_keyboard.getLocation4();
+        case 5:
+            return piano_keyboard.getLocation5();
+        default:
+            return piano_keyboard.getLocation3();
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
-    
-    if(key == 'q') {
-        
+    if (key == OF_KEY_RIGHT && location_layout < 5) {
+        location_layout++;
+        // highlight new location layout
+        return;
+    } else if (key == OF_KEY_LEFT && location_layout > 0) {
+        location_layout--;
+        // highlight new location layout
+        return;
+    } else {
+        std::vector<PianoKey> current_layout_of_piano = getCurrentPianoLayout();
+        for (int i = 0; i < all_computer_keys.size(); i++) {
+            if (key == all_computer_keys[i]) {
+                current_layout_of_piano[i].getKeysound().play();
+                // Draw()/light up the key as well
+                return;
+            }
+        }
     }
+    // Wrong key was pressed
 }
 
 //--------------------------------------------------------------

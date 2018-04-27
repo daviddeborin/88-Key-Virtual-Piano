@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "keyboard.hpp"
 #include <vector>
 #include <string>
 
@@ -9,7 +10,12 @@ private:
     std::vector<ofSoundPlayer> key_sounds;
     Keyboard piano_keyboard;
     ofImage piano_image;
+    
+    // keeps track of which of the 5 piano keyboard layouts is in use.
+    // 0 <= location_layout <= 5
     int location_layout;
+    
+    // A string consisting of all the computer keys used to play the virtual piano.
     string computer_keys;
     std::vector<int> all_computer_keys;
     
@@ -21,13 +27,15 @@ public:
     // This method creates 5 different 48-key layouts (vectors) on the piano keyboard.
     void createKeyboardLocations();
     
-    
     /**
      This method creates a vector that stores all the computer keys as ASCII numerics.
 
      @param computer_keys is a string made up of all the 48 computer keys used to play the virtual piano.
      */
     void establishComputerKeys(string computer_keys);
+    
+    // This method returns the current location layout of the virtual piano.
+    std::vector<PianoKey> getCurrentPianoLayout();
     
     void keyPressed(int key);
     void keyReleased(int key);

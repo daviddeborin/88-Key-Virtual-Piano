@@ -19,5 +19,7 @@ public:
     PianoKey(ofSoundPlayer sound_of_key) {
         key_sound = sound_of_key;
     }
+    
+    ofSoundPlayer getKeysound();
 };
 #endif /* piano_key_hpp */
