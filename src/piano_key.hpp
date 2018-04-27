@@ -20,6 +20,6 @@ public:
         key_sound = sound_of_key;
     }
     
-    ofSoundPlayer getKeysound();
+    ofSoundPlayer &getKeysound();
 };
 #endif /* piano_key_hpp */

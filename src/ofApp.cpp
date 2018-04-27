@@ -166,7 +166,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
     
 }
 
-std::vector<ofSoundPlayer> ofApp::getKeySounds() {
+std::vector<ofSoundPlayer> &ofApp::getKeySounds() {
     return key_sounds;
 }
 
