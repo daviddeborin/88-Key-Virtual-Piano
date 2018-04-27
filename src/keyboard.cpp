@@ -15,19 +15,19 @@ std::vector<PianoKey> Keyboard::getLocation1() {
     return location1;
 }
 
-std::vector<PianoKey> Keyboard::getLocation1() {
+std::vector<PianoKey> Keyboard::getLocation2() {
     return location2;
 }
 
-std::vector<PianoKey> Keyboard::getLocation1() {
+std::vector<PianoKey> Keyboard::getLocation3() {
     return location3;
 }
 
-std::vector<PianoKey> Keyboard::getLocation1() {
+std::vector<PianoKey> Keyboard::getLocation4() {
     return location4;
 }
 
-std::vector<PianoKey> Keyboard::getLocation1() {
+std::vector<PianoKey> Keyboard::getLocation5() {
     return location5;
 }
 

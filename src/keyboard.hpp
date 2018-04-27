@@ -14,8 +14,6 @@
 #include "ofMain.h"
 #include "ofApp.h"
 
-std::vector<PianoKey> piano_keys;
-
 class Keyboard {
 private:
     std::vector<PianoKey> piano_keys; // ALL 88 piano keys

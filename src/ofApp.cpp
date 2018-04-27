@@ -20,13 +20,32 @@ void ofApp::setup() {
     }
     
     // Create a piano keyboard with 88 keys
-    Keyboard piano_keyboard;
     for (ofSoundPlayer key_sound: key_sounds) {
         PianoKey piano_key(key_sound);
         piano_keyboard.getPianoKeys().push_back(piano_key);
     }
     
-    // Create the 5 different piano keyboard locations/48-key layouts
+    createKeyboardLocations();
+
+    computer_keys = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ ";
+    establishComputerKeys(computer_keys);
+
+    piano_image.load("/Users/daviddeborin/Desktop/C++ OpenFrameworks/of_v0.9.8_osx_release/apps/myApps/final-project-daviddeborin/Usable Pictures/1297658541.jpg");
+    
+}
+
+//--------------------------------------------------------------
+void ofApp::update() {
+    
+}
+
+// Called every frame (60 fps means it calls draw() 60 times a second)
+void ofApp::draw() {
+    piano_image.draw(100, 100);
+}
+
+//--------------------------------------------------------------
+void ofApp::createKeyboardLocations() {
     for (int i = 0; i < 88; i++) {
         PianoKey a_key = piano_keyboard.getPianoKeys()[i];
         
@@ -46,72 +65,54 @@ void ofApp::setup() {
             piano_keyboard.getLocation5().push_back(a_key);
         }
     }
-    
-    
-    
-    //    A0.play();
-    //    B_flat_0.play();
-    //    B_zero.play();
-    //    D_flat_0.play();
-    //    C0.play();
-    //    D_flat_0.play();
-    //    D0.play();
-    //    E_flat_0.play();
-    //    E0.play();
-    //    F0.play();
-    //    G_flat_0.play();
-    //    G0.play();
-    //    A_flat_0.play();
-    
-    
+}
+
+void ofApp::establishComputerKeys(string computer_keys) {
+    for (int i = 0; i < computer_keys.length(); ++i) {
+        all_computer_keys.push_back(computer_keys[i]);
+    };
+}
 
 //--------------------------------------------------------------
-void ofApp::update(){
+void ofApp::keyPressed(int key) {
+    
+    if(key == 'q') {
+        
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::keyReleased(int key) {
     
 }
 
 //--------------------------------------------------------------
-void ofApp::draw(){
+void ofApp::mouseMoved(int x, int y ) {
     
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){
+void ofApp::mouseDragged(int x, int y, int button) {
     
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key){
+void ofApp::mousePressed(int x, int y, int button) {
     
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y ){
+void ofApp::mouseReleased(int x, int y, int button) {
     
 }
 
 //--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button){
+void ofApp::mouseEntered(int x, int y) {
     
 }
 
 //--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y){
-    
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y){
+void ofApp::mouseExited(int x, int y) {
     
 }
 
