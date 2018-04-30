@@ -10,10 +10,19 @@
 
 #include <stdio.h>
 #include <vector>
-#include "piano_key.hpp"
+#include "ofMain.h"
+#include "ofxGui.h"
 
-class Keyboard {
-private:
+struct PianoKey {
+    ofSoundPlayer key_sound;
+    ofRectangle key_shape;
+    ofColor key_color;
+};
+
+//PianoKey key = { sound, shape, color };
+
+struct Keyboard {
+    
     std::vector<PianoKey> piano_keys; // ALL 88 piano keys
     
     // A user will be able to play a certain location of the keyboard at a time (48 keys)
@@ -22,15 +31,6 @@ private:
     std::vector<PianoKey> location3;
     std::vector<PianoKey> location4;
     std::vector<PianoKey> location5;
-    
-public:
-    std::vector<PianoKey> &getPianoKeys();
-    std::vector<PianoKey> &getLocation1();
-    std::vector<PianoKey> &getLocation2();
-    std::vector<PianoKey> &getLocation3();
-    std::vector<PianoKey> &getLocation4();
-    std::vector<PianoKey> &getLocation5();
-
 };
 
 #endif /* keyboard_hpp */

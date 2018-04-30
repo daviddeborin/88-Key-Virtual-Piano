@@ -7,6 +7,8 @@
 
 class ofApp : public ofBaseApp{
 private:
+    int x_size_of_window = 1024;
+    int y_size_of_window = 768;
     std::vector<ofSoundPlayer> key_sounds;
     Keyboard piano_keyboard;
     ofImage piano_image;
@@ -32,7 +34,10 @@ public:
 
      @param computer_keys is a string made up of all the 48 computer keys used to play the virtual piano.
      */
-    void establishComputerKeys(string computer_keys);
+    void establishComputerKeys(const std::string &computer_keys);
+    
+    // This method creates all 88 keys, where each key has a sound, shape, and color.
+    void createKeyboard();
     
     // This method returns the current location layout of the virtual piano.
     std::vector<PianoKey> getCurrentPianoLayout();
