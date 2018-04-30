@@ -40,20 +40,11 @@ at University of Iowa's Music School.
   lines of code. On another note, successfully merging my experimental branch with my master branch
   took a little while to figure out.  
 
-  **Do I create they keyboard from scratch or not?**  
-  - draw all the white keys first and then the black keys.
-
-// Code for drawing the white keys before the black keys
-  for (0; pianokeyboard.length; i++) {
-    if (pianokeyboard[i].getColor == white) {
-      draw the key;
-    }
-  }
-
-  // then do the black keys
-
-  for (0; pianokeyboard.length; i++) {
-    if (pianokeyboard[i].getColor == black) {
-      draw the key;
-    }
-  }
+  **Drawing the Keyboard:**  
+  Since a piano is not symmetric and contains black keys in between white keys,
+  figuring out how to efficiently draw the keyboard was tricky, yet extremely fun.
+  I also wanted to draw a piano with the exact dimensions of a real piano.  
+  *Graphics Keyboard Process:*
+  - Draw the 52 white keys first
+  - Outline the white keys (This issue was solved with the ofNoFill() function)
+  - Draw the 36 black keys

@@ -8,31 +8,29 @@ void ofApp::setup() {
     location_layout = 3; // Default (center) layout
     
     // create 88 sound objects
-    for (int i = 0; i < 88; i++) {
+    for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
         ofSoundPlayer key_sound_i;
         key_sounds.push_back(key_sound_i);
     }
     
     // Load the 88 sound objects
-    for (int i = 0; i < 88; i++) {
+    for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
         auto key_number = std::to_string(i + 1);
         key_sounds[i].load("/Users/daviddeborin/Desktop/C++ OpenFrameworks/of_v0.9.8_osx_release/apps/myApps/final-project-daviddeborin/Piano Sounds/All 88 Key Sounds \(mp3)/" + key_number + ".mp3");
     }
-
-//    // Create a piano keyboard with 88 keys
-//    for (ofSoundPlayer key_sound: key_sounds) {
-//        PianoKey piano_key = (key_sound, shape, image);
-//        piano_keyboard.piano_keys.push_back(piano_key);
-//    }
     
+//    setColors();
+    createKeyboard();
     createKeyboardLocations();
-
-    computer_keys = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./ ";
     establishComputerKeys(computer_keys);
-
-    piano_image.load("/Users/daviddeborin/Desktop/C++ OpenFrameworks/of_v0.9.8_osx_release/apps/myApps/final-project-daviddeborin/Usable Pictures/1297658541.jpg");
-    
+    getCurrentPianoLayout();
 }
+
+//--------------------------------------------------------------
+//void ofApp::setColors() {
+//    PianoKey::black.set(0, 0, 0);
+//    PianoKey::white.set(255, 255, 255);
+//}
 
 //--------------------------------------------------------------
 void ofApp::createKeyboard() {
@@ -56,22 +54,28 @@ void ofApp::createKeyboard() {
     
     for (int i = 0; i < 7; i++) {
         for (int j = 0; j < 12; j++) {
+            int index_on_keyboard = (i * 12) + j + 3;
             PianoKey piano_key;
+            
             if (j <= 4) {
                 if (j % 2 == 0) {
-                    // intialize black key
-                    piano_key = {key_sounds[i * 12 + j + 3], black_key_rectangle, black};
+                    // intialize white key
+                    piano_key = {key_sounds[index_on_keyboard], white_key_rectangle, white};
+                    piano_keyboard.piano_keys.push_back(piano_key);
                 } else {
-                    // initialize white key
-                    piano_key = {key_sounds[i * 12 + j + 3], white_key_rectangle, white};
+                    // initialize black key
+                    piano_key = {key_sounds[index_on_keyboard], black_key_rectangle, black};
+                    piano_keyboard.piano_keys.push_back(piano_key);
                 }
             } else {
                 if (j % 2 == 0) {
-                    // initialize with white key
-                    piano_key = {key_sounds[i * 12 + j + 3], white_key_rectangle, white};
-                } else {
                     // initialize with black key
-                    piano_key = {key_sounds[i * 12 + j + 3], black_key_rectangle, black};
+                    piano_key = {key_sounds[index_on_keyboard], black_key_rectangle, black};
+                    piano_keyboard.piano_keys.push_back(piano_key);
+                } else {
+                    // initialize with white key
+                    piano_key = {key_sounds[index_on_keyboard], white_key_rectangle, white};
+                    piano_keyboard.piano_keys.push_back(piano_key);
                 }
             }
         }
@@ -88,22 +92,47 @@ void ofApp::update() {
 
 // Called every frame (60 fps means it calls draw() 60 times a second)
 void ofApp::draw() {
-//    piano_image.draw(100, 100);
-//    ofSetColor(100, 46, 200);
-
-    ofColor ball_color;
-    ball_color.r = 255;
-    ball_color.g = 255;
-    ball_color.b = 255;
-    ofSetColor(ball_color);
-    ofRectangle rectangle;
-    rectangle.set(500, 500, 10, 80);
-    ofDrawRectangle(rectangle);
+    ofColor white;
+    ofColor black;
+    white.set(255, 255, 255);
+    black.set(0, 0, 0);
+    
+    int white_keys_count = 0;
+    for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
+        if (piano_keyboard.piano_keys[i].key_color == white) {
+            white_keys_count++;
+            
+            // These are exact dimensions of standard pianos
+            float height_to_width_ratio = 5.39;
+            float width_of_key = x_size_of_window / Keyboard::NUM_WHITE_KEYS;
+            float height_of_key = width_of_key * height_to_width_ratio;
+            
+            ofRectangle key_shape = piano_keyboard.piano_keys[i].key_shape;
+            key_shape.set(1 + (width_of_key * white_keys_count), 500, width_of_key, height_of_key);
+            ofSetColor(white);
+            ofFill();
+            ofDrawRectRounded(key_shape, 0, 0, 3, 3);
+            
+            ofRectangle outlined_rectangle;
+            ofSetColor(black);
+            outlined_rectangle.set(1 + (width_of_key * white_keys_count), 500, width_of_key, height_of_key);
+            ofNoFill();
+            ofDrawRectRounded(outlined_rectangle, 0, 0, 3, 3);
+        }
+    }
+    
+    // Figure out the dimensions for the black keys
+    int black_keys_count;
+    for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
+        if (piano_keyboard.piano_keys[i].key_color == black) {
+            black_keys_count++;
+        }
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::createKeyboardLocations() {
-    for (int i = 0; i < 88; i++) {
+    for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
         PianoKey a_key = piano_keyboard.piano_keys[i];
         
         if (i <= 47) {
