@@ -21,12 +21,10 @@ struct PianoKey {
     ofColor key_color;
 };
 
-//PianoKey key = { sound, shape, color };
-
 struct Keyboard {
     static const int NUM_OF_KEYS = 88;
     static const int NUM_WHITE_KEYS = 52;
-
+    
     std::vector<PianoKey> piano_keys; // ALL 88 piano keys
     
     // A user will be able to play a certain location of the keyboard at a time (48 keys)
