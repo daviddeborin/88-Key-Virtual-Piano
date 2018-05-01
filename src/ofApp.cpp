@@ -19,18 +19,11 @@ void ofApp::setup() {
         key_sounds[i].load("/Users/daviddeborin/Desktop/C++ OpenFrameworks/of_v0.9.8_osx_release/apps/myApps/final-project-daviddeborin/Piano Sounds/All 88 Key Sounds \(mp3)/" + key_number + ".mp3");
     }
     
-//    setColors();
     createKeyboard();
     createKeyboardLocations();
     establishComputerKeys(computer_keys);
     getCurrentPianoLayout();
 }
-
-//--------------------------------------------------------------
-//void ofApp::setColors() {
-//    PianoKey::black.set(0, 0, 0);
-//    PianoKey::white.set(255, 255, 255);
-//}
 
 //--------------------------------------------------------------
 void ofApp::createKeyboard() {
@@ -97,35 +90,108 @@ void ofApp::draw() {
     white.set(255, 255, 255);
     black.set(0, 0, 0);
     
+    // Exact dimensions of white keys
+    int white_key_bottom_radius = 4;
+    float white_height_to_width_ratio = 5.39;
+    
+    float initial_white_key_width = ((float) x_size_of_window / Keyboard::NUM_WHITE_KEYS);
+    float buffer_space = (x_size_of_window / Keyboard::NUM_WHITE_KEYS) * 0.01;
+    float initial_buffer = (x_size_of_window * 0.01) / 2.0;
+    
+    float white_key_width = initial_white_key_width - buffer_space;
+    float white_key_height = (white_key_width * white_height_to_width_ratio) + white_key_bottom_radius;
+    float y_coordinate_of_piano = ((y_size_of_window / 2) - (white_key_height / 2));
+    
+    // Try casting as ints and see how it looks like without the noFill()
     int white_keys_count = 0;
     for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
         if (piano_keyboard.piano_keys[i].key_color == white) {
-            white_keys_count++;
-            
-            // These are exact dimensions of standard pianos
-            float height_to_width_ratio = 5.39;
-            float width_of_key = x_size_of_window / Keyboard::NUM_WHITE_KEYS;
-            float height_of_key = width_of_key * height_to_width_ratio;
             
             ofRectangle key_shape = piano_keyboard.piano_keys[i].key_shape;
-            key_shape.set(1 + (width_of_key * white_keys_count), 500, width_of_key, height_of_key);
+            key_shape.set(initial_buffer + (white_key_width * white_keys_count), y_coordinate_of_piano, white_key_width, white_key_height);
             ofSetColor(white);
             ofFill();
-            ofDrawRectRounded(key_shape, 0, 0, 3, 3);
+            ofDrawRectRounded(key_shape, 0, 0, white_key_bottom_radius, white_key_bottom_radius);
             
             ofRectangle outlined_rectangle;
             ofSetColor(black);
-            outlined_rectangle.set(1 + (width_of_key * white_keys_count), 500, width_of_key, height_of_key);
+            outlined_rectangle.set(initial_buffer + (white_key_width * white_keys_count), y_coordinate_of_piano, white_key_width, white_key_height);
             ofNoFill();
-            ofDrawRectRounded(outlined_rectangle, 0, 0, 3, 3);
+            ofDrawRectRounded(outlined_rectangle, 0, 0, white_key_bottom_radius, white_key_bottom_radius);
+            
+            white_keys_count++;
         }
     }
     
-    // Figure out the dimensions for the black keys
-    int black_keys_count;
-    for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
-        if (piano_keyboard.piano_keys[i].key_color == black) {
-            black_keys_count++;
+    // Exact dimensions of black keys
+    float white_key_unit_width = 840.0;
+    float black_key_unit_width = 490.0;
+    float black_to_white_width_ratio = black_key_unit_width / white_key_unit_width; // roughly 0.583
+    float black_height_to_width_ratio = 5.84;
+    float black_key_width = white_key_width * black_to_white_width_ratio;
+    float black_key_height = black_key_width * black_height_to_width_ratio;
+
+    float key_1 = (525 / white_key_unit_width) * white_key_width; // C
+    float key_2 = (black_key_unit_width / white_key_unit_width) * white_key_width; // D_FLAT
+    float key_3 = (455 / white_key_unit_width) * white_key_width; // F
+    
+    float first_a = (735 / white_key_unit_width) * white_key_width;
+    ofRectangle key_shape = piano_keyboard.piano_keys[1].key_shape;
+    key_shape.set(first_a, y_coordinate_of_piano, black_key_width, black_key_height);
+    ofSetColor(black);
+    ofFill();
+    ofDrawRectangle(key_shape);
+    
+    float x_coordinate = initial_buffer + (white_key_width * 2);
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 12; j++) {
+            int index_on_keyboard = (i * 12) + j + 3;
+
+            if (j == 0 || j == 4) {
+                if (piano_keyboard.piano_keys[index_on_keyboard].key_color == black) {
+                    ofRectangle key_shape = piano_keyboard.piano_keys[index_on_keyboard].key_shape;
+                    key_shape.set(x_coordinate, y_coordinate_of_piano, black_key_width, black_key_height);
+                    ofSetColor(black);
+                    ofFill();
+                    ofDrawRectangle(key_shape);
+                    x_coordinate += key_1;
+                } else {
+                    x_coordinate += key_1;
+                }
+            } else if (j == 1 || j == 2 || j == 3) {
+                if (piano_keyboard.piano_keys[index_on_keyboard].key_color == black) {
+                    ofRectangle key_shape = piano_keyboard.piano_keys[index_on_keyboard].key_shape;
+                    key_shape.set(x_coordinate, y_coordinate_of_piano, black_key_width, black_key_height);
+                    ofSetColor(black);
+                    ofFill();
+                    ofDrawRectangle(key_shape);
+                    x_coordinate += key_2;
+                } else {
+                    x_coordinate += key_2;
+                }
+            } else if (j == 5 || j == 11) {
+                if (piano_keyboard.piano_keys[index_on_keyboard].key_color == black) {
+                    ofRectangle key_shape = piano_keyboard.piano_keys[index_on_keyboard].key_shape;
+                    key_shape.set(x_coordinate, y_coordinate_of_piano, black_key_width, black_key_height);
+                    ofSetColor(black);
+                    ofFill();
+                    ofDrawRectangle(key_shape);
+                    x_coordinate += key_3;
+                } else {
+                    x_coordinate += key_3;
+                }
+            } else {
+                if (piano_keyboard.piano_keys[index_on_keyboard].key_color == black) {
+                    ofRectangle key_shape = piano_keyboard.piano_keys[index_on_keyboard].key_shape;
+                    key_shape.set(x_coordinate, y_coordinate_of_piano, black_key_width, black_key_height);
+                    ofSetColor(black);
+                    ofFill();
+                    ofDrawRectangle(key_shape);
+                    x_coordinate += key_2;
+                } else {
+                    x_coordinate += key_2;
+                }
+            }
         }
     }
 }
