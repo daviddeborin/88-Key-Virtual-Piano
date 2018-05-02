@@ -10,18 +10,18 @@ void ofApp::setup() {
     // create 88 sound objects
     for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
         ofSoundPlayer key_sound_i;
+        key_sound_i.setMultiPlay(true);
         key_sounds.push_back(key_sound_i);
     }
     
     // Load the 88 sound objects
     for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
         auto key_number = std::to_string(i + 1);
-        key_sounds[i].load("/Users/daviddeborin/Desktop/C++ OpenFrameworks/of_v0.9.8_osx_release/apps/myApps/final-project-daviddeborin/Piano Sounds/All 88 Key Sounds \(mp3)/" + key_number + ".mp3");
+        key_sounds[i].load("Piano Sounds/All 88 Key Sounds Edited \(mp3)/" + key_number + ".mp3");
     }
     
     setColors();
     createKeyboard();
-    createKeyboardLocations();
     establishComputerKeys(computer_keys);
     getCurrentPianoLayout();
 }
@@ -42,13 +42,15 @@ void ofApp::setColors() {
 void ofApp::createKeyboard() {
     ofRectangle white_key_rectangle;
     ofSetColor(white);
+    std::string white_key = "wide";
     
     ofRectangle black_key_rectangle;
     ofSetColor(black);
+    std::string black_key = "thin";
     
-    PianoKey piano_key_1 = {key_sounds[0], white_key_rectangle, white};
-    PianoKey piano_key_2 = {key_sounds[1], black_key_rectangle, black};
-    PianoKey piano_key_3 = {key_sounds[2], white_key_rectangle, white};
+    PianoKey piano_key_1 = {key_sounds[0], white_key_rectangle, white, white_key};
+    PianoKey piano_key_2 = {key_sounds[1], black_key_rectangle, black, black_key};
+    PianoKey piano_key_3 = {key_sounds[2], white_key_rectangle, white, white_key};
 
     piano_keyboard.piano_keys.push_back(piano_key_1);
     piano_keyboard.piano_keys.push_back(piano_key_2);
@@ -62,28 +64,28 @@ void ofApp::createKeyboard() {
             if (j <= 4) {
                 if (j % 2 == 0) {
                     // intialize white key
-                    piano_key = {key_sounds[index_on_keyboard], white_key_rectangle, white};
+                    piano_key = {key_sounds[index_on_keyboard], white_key_rectangle, white, white_key};
                     piano_keyboard.piano_keys.push_back(piano_key);
                 } else {
                     // initialize black key
-                    piano_key = {key_sounds[index_on_keyboard], black_key_rectangle, black};
+                    piano_key = {key_sounds[index_on_keyboard], black_key_rectangle, black, black_key};
                     piano_keyboard.piano_keys.push_back(piano_key);
                 }
             } else {
                 if (j % 2 == 0) {
                     // initialize black key
-                    piano_key = {key_sounds[index_on_keyboard], black_key_rectangle, black};
+                    piano_key = {key_sounds[index_on_keyboard], black_key_rectangle, black, black_key};
                     piano_keyboard.piano_keys.push_back(piano_key);
                 } else {
                     // initialize white key
-                    piano_key = {key_sounds[index_on_keyboard], white_key_rectangle, white};
+                    piano_key = {key_sounds[index_on_keyboard], white_key_rectangle, white, white_key};
                     piano_keyboard.piano_keys.push_back(piano_key);
                 }
             }
         }
     }
     
-    PianoKey piano_key_88 = {key_sounds[87], white_key_rectangle, white};
+    PianoKey piano_key_88 = {key_sounds[87], white_key_rectangle, white, white_key};
     piano_keyboard.piano_keys.push_back(piano_key_88);
 }
 
@@ -109,11 +111,12 @@ void ofApp::draw() {
     // Drawing the 52 white keys
     int white_keys_count = 0;
     for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
-        if (piano_keyboard.piano_keys[i].key_color == white) {
-            
-            ofRectangle key_shape = piano_keyboard.piano_keys[i].key_shape;
+        PianoKey a_key = piano_keyboard.piano_keys[i];
+        
+        if (a_key.type == "wide") {
+            ofRectangle key_shape = a_key.key_shape;
             key_shape.set(initial_buffer + (white_key_width * white_keys_count), y_coordinate_of_piano, white_key_width, white_key_height);
-            ofSetColor(white);
+            ofSetColor(a_key.key_color);
             ofFill();
             ofDrawRectRounded(key_shape, 0, 0, white_key_bottom_radius, white_key_bottom_radius);
             
@@ -142,7 +145,7 @@ void ofApp::drawBlackKeys(float starting_point) {
     top_of_c = (525 / white_key_unit_width) * white_key_width; // white space on the top of C and E
     top_of_f = (455 / white_key_unit_width) * white_key_width; // white space on the top of F and B
     
-    // Drawing the first black key
+    // Drawing the first black key --> CHANGE COLOR???
     float first_a = (735 / white_key_unit_width) * white_key_width;
     ofRectangle key_shape = piano_keyboard.piano_keys[1].key_shape;
     key_shape.set(first_a, y_coordinate_of_piano, black_key_width, black_key_height);
@@ -155,12 +158,13 @@ void ofApp::drawBlackKeys(float starting_point) {
     for (int i = 0; i < 7; i++) {
         for (int j = 0; j < 12; j++) {
             int index_on_keyboard = (i * 12) + j + 3;
+            PianoKey a_key = piano_keyboard.piano_keys[index_on_keyboard];
             
             if (j == 0 || j == 4) {
-                if (piano_keyboard.piano_keys[index_on_keyboard].key_color == black) {
-                    ofRectangle key_shape = piano_keyboard.piano_keys[index_on_keyboard].key_shape;
+                if (a_key.type == "thin") {
+                    ofRectangle key_shape = a_key.key_shape;
                     key_shape.set(x_coordinate, y_coordinate_of_piano, black_key_width, black_key_height);
-                    ofSetColor(black);
+                    ofSetColor(a_key.key_color);
                     ofFill();
                     ofDrawRectangle(key_shape);
                     x_coordinate += top_of_c;
@@ -168,10 +172,10 @@ void ofApp::drawBlackKeys(float starting_point) {
                     x_coordinate += top_of_c;
                 }
             } else if (j == 1 || j == 2 || j == 3) {
-                if (piano_keyboard.piano_keys[index_on_keyboard].key_color == black) {
-                    ofRectangle key_shape = piano_keyboard.piano_keys[index_on_keyboard].key_shape;
+                if (a_key.type == "thin") {
+                    ofRectangle key_shape = a_key.key_shape;
                     key_shape.set(x_coordinate, y_coordinate_of_piano, black_key_width, black_key_height);
-                    ofSetColor(black);
+                    ofSetColor(a_key.key_color);
                     ofFill();
                     ofDrawRectangle(key_shape);
                     x_coordinate += black_key_width;
@@ -179,10 +183,10 @@ void ofApp::drawBlackKeys(float starting_point) {
                     x_coordinate += black_key_width;
                 }
             } else if (j == 5 || j == 11) {
-                if (piano_keyboard.piano_keys[index_on_keyboard].key_color == black) {
-                    ofRectangle key_shape = piano_keyboard.piano_keys[index_on_keyboard].key_shape;
+                if (a_key.type == "thin") {
+                    ofRectangle key_shape = a_key.key_shape;
                     key_shape.set(x_coordinate, y_coordinate_of_piano, black_key_width, black_key_height);
-                    ofSetColor(black);
+                    ofSetColor(a_key.key_color);
                     ofFill();
                     ofDrawRectangle(key_shape);
                     x_coordinate += top_of_f;
@@ -190,10 +194,10 @@ void ofApp::drawBlackKeys(float starting_point) {
                     x_coordinate += top_of_f;
                 }
             } else {
-                if (piano_keyboard.piano_keys[index_on_keyboard].key_color == black) {
-                    ofRectangle key_shape = piano_keyboard.piano_keys[index_on_keyboard].key_shape;
+                if (a_key.type == "thin") {
+                    ofRectangle key_shape = a_key.key_shape;
                     key_shape.set(x_coordinate, y_coordinate_of_piano, black_key_width, black_key_height);
-                    ofSetColor(black);
+                    ofSetColor(a_key.key_color);
                     ofFill();
                     ofDrawRectangle(key_shape);
                     x_coordinate += black_key_width;
@@ -207,75 +211,56 @@ void ofApp::drawBlackKeys(float starting_point) {
 
 void ofApp::drawLayoutOutline(float starting_point) {
     ofRectangle outlined_rectangle;
+    float layout_width = 28 * white_key_width;
+    float half_black_width = (black_key_width / 2);
 
     switch (location_layout) {
+            
         case 1: // work on this one
-            outlined_rectangle.set(starting_point, y_coordinate_of_piano, 28 * white_key_width + (black_key_width / 2), white_key_height);
+            outlined_rectangle.set(starting_point, y_coordinate_of_piano, layout_width + half_black_width, white_key_height);
             layout_color.set(yellow);
             ofSetColor(layout_color);
             ofNoFill();
+            ofSetLineWidth(2);
             ofDrawRectangle(outlined_rectangle);
             break;
         case 2:
-            outlined_rectangle.set(starting_point + (5 * white_key_width), y_coordinate_of_piano, 28 * white_key_width, white_key_height);
+            outlined_rectangle.set(starting_point + (5 * white_key_width), y_coordinate_of_piano, layout_width, white_key_height);
             layout_color.set(green);
             ofSetColor(layout_color);
             ofNoFill();
+            ofSetLineWidth(2);
             ofDrawRectangle(outlined_rectangle);
             break;
         case 3:
-            outlined_rectangle.set(starting_point + (12 * white_key_width), y_coordinate_of_piano, 28 * white_key_width, white_key_height);
+            outlined_rectangle.set(starting_point + (12 * white_key_width), y_coordinate_of_piano, layout_width, white_key_height);
             layout_color.set(red);
             ofSetColor(layout_color);
             ofNoFill();
+            ofSetLineWidth(2);
             ofDrawRectangle(outlined_rectangle);
             break;
         case 4:
-            outlined_rectangle.set(starting_point + (19 * white_key_width), y_coordinate_of_piano, 28 * white_key_width, white_key_height);
+            outlined_rectangle.set(starting_point + (19 * white_key_width), y_coordinate_of_piano, layout_width, white_key_height);
             layout_color.set(magenta);
             ofSetColor(layout_color);
             ofNoFill();
+            ofSetLineWidth(2);
             ofDrawRectangle(outlined_rectangle);
             break;
         case 5: // work on this one
-            outlined_rectangle.set(starting_point + (23 * white_key_width) + top_of_c, y_coordinate_of_piano, 28 * white_key_width  + (black_key_width / 2), white_key_height);
+            outlined_rectangle.set(starting_point + (23 * white_key_width) + top_of_c, y_coordinate_of_piano, layout_width  + half_black_width, white_key_height);
             layout_color.set(blue);
             ofSetColor(layout_color);
             ofNoFill();
+            ofSetLineWidth(2);
             ofDrawRectangle(outlined_rectangle);
             break;
         default:
-            outlined_rectangle.set(starting_point + (12 * white_key_width), y_coordinate_of_piano, 28 * white_key_width, white_key_height);
-            layout_color.set(red);
-            ofSetColor(layout_color);
-            ofNoFill();
-            ofDrawRectangle(outlined_rectangle);
             break;
     }
 
-}
-
-//--------------------------------------------------------------
-void ofApp::createKeyboardLocations() {
-    for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
-        PianoKey a_key = piano_keyboard.piano_keys[i];
-        
-        if (i <= 47) {
-            piano_keyboard.location1.push_back(a_key);
-        }
-        if (i >= 8 && i <= 55) {
-            piano_keyboard.location2.push_back(a_key);
-        }
-        if (i >= 20 && i <= 67) {
-            piano_keyboard.location3.push_back(a_key);
-        }
-        if (i >= 32 && i <= 79) {
-            piano_keyboard.location4.push_back(a_key);
-        }
-        if (i >= 40 && i <= 87) {
-            piano_keyboard.location5.push_back(a_key);
-        }
-    }
+    ofSetLineWidth(1);
 }
 
 //--------------------------------------------------------------
@@ -284,20 +269,20 @@ void ofApp::establishComputerKeys(const std::string &computer_keys) {
 }
 
 //--------------------------------------------------------------
-std::vector<PianoKey> ofApp::getCurrentPianoLayout() {
+int ofApp::getCurrentPianoLayout() {
     switch (location_layout) {
         case 1:
-            return piano_keyboard.location1;
+            return loc_1_start;
         case 2:
-            return piano_keyboard.location2;
+            return loc_2_start;
         case 3:
-            return piano_keyboard.location3;
+            return loc_3_start;
         case 4:
-            return piano_keyboard.location4;
+            return loc_4_start;
         case 5:
-            return piano_keyboard.location5;
+            return loc_5_start;
         default:
-            return piano_keyboard.location3;
+            return loc_3_start;
     }
 }
 
@@ -305,28 +290,35 @@ std::vector<PianoKey> ofApp::getCurrentPianoLayout() {
 void ofApp::keyPressed(int key) {
     if (key == OF_KEY_RIGHT && location_layout < 5) {
         location_layout++;
-        // highlight new location layout
         return;
-    } else if (key == OF_KEY_LEFT && location_layout > 0) {
+    } else if (key == OF_KEY_LEFT && location_layout > 1) {
         location_layout--;
-        // highlight new location layout
         return;
     } else {
-        std::vector<PianoKey> current_layout_of_piano = getCurrentPianoLayout();
+       int starting_index = getCurrentPianoLayout();
         for (int i = 0; i < all_computer_keys.size(); i++) {
             if (key == all_computer_keys[i]) {
-                current_layout_of_piano[i].key_sound.play();
-                // Draw()/light up the key as well
+                piano_keyboard.piano_keys[i + starting_index].key_sound.play();
+                piano_keyboard.piano_keys[i + starting_index].key_color.set(layout_color);
                 return;
             }
         }
     }
-    // Wrong key was pressed
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key) {
-    
+    int starting_index = getCurrentPianoLayout();
+    for (int i = 0; i < all_computer_keys.size(); i++) {
+        if (key == all_computer_keys[i]) {
+            if (piano_keyboard.piano_keys[i + starting_index].type == "wide") {
+                piano_keyboard.piano_keys[i + starting_index].key_color.set(white);
+            } else {
+                piano_keyboard.piano_keys[i + starting_index].key_color.set(black);
+            }
+            return;
+        }
+    }
 }
 
 //--------------------------------------------------------------

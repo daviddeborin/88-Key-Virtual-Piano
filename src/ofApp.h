@@ -16,6 +16,14 @@ private:
     ofColor blue;
     ofColor layout_color;
     
+    // A user will be able to play a certain location of the keyboard at a time (48 keys)
+    // Starting and ending insices of each piano location layout
+    const int loc_1_start = 0;
+    const int loc_2_start = 8;
+    const int loc_3_start = 20;
+    const int loc_4_start = 32;
+    const int loc_5_start = 40;
+    
     int x_size_of_window = 1024;
     int y_size_of_window = 768;
     
@@ -63,9 +71,6 @@ public:
     
     void setColors();
     
-    // This method creates 5 different 48-key layouts (vectors) on the piano keyboard.
-    void createKeyboardLocations();
-    
     /**
      This method creates a vector that stores all the computer keys as ASCII numerics.
      @param computer_keys is a string made up of all the 48 computer keys used to play the virtual piano.
@@ -78,7 +83,7 @@ public:
     void drawLayoutOutline(float starting_point);
     
     // This method returns the current location layout of the virtual piano.
-    std::vector<PianoKey> getCurrentPianoLayout();
+    int getCurrentPianoLayout();
     
     void keyPressed(int key);
     void keyReleased(int key);
