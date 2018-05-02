@@ -10,9 +10,7 @@ void ofApp::setup() {
     // create 88 sound objects
     for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
         ofSoundPlayer key_sound_i;
-        key_sound_i.setMultiPlay(true);
         key_sounds.push_back(key_sound_i);
-        key_pressed.push_back(false);
     }
     
     // Load the 88 sound objects
