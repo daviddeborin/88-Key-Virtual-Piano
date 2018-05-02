@@ -12,6 +12,7 @@ void ofApp::setup() {
         ofSoundPlayer key_sound_i;
         key_sound_i.setMultiPlay(true);
         key_sounds.push_back(key_sound_i);
+        key_pressed.push_back(false);
     }
     
     // Load the 88 sound objects
@@ -145,13 +146,15 @@ void ofApp::drawBlackKeys(float starting_point) {
     top_of_c = (525 / white_key_unit_width) * white_key_width; // white space on the top of C and E
     top_of_f = (455 / white_key_unit_width) * white_key_width; // white space on the top of F and B
     
-    // Drawing the first black key --> CHANGE COLOR???
-    float first_a = (735 / white_key_unit_width) * white_key_width;
-    ofRectangle key_shape = piano_keyboard.piano_keys[1].key_shape;
-    key_shape.set(first_a, y_coordinate_of_piano, black_key_width, black_key_height);
-    ofSetColor(black);
-    ofFill();
-    ofDrawRectangle(key_shape);
+    // Drawing the first black key
+    if (piano_keyboard.piano_keys[1].type == "thin") {
+        float first_a = (735 / white_key_unit_width) * white_key_width;
+        ofRectangle key_shape = piano_keyboard.piano_keys[1].key_shape;
+        key_shape.set(first_a, y_coordinate_of_piano, black_key_width, black_key_height);
+        ofSetColor(piano_keyboard.piano_keys[1].key_color);
+        ofFill();
+        ofDrawRectangle(key_shape);
+    }
     
     // Drawing the other 35 black keys
     float x_coordinate = starting_point + (white_key_width * 2);
@@ -308,6 +311,9 @@ void ofApp::keyPressed(int key) {
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key) {
+    if (key == OF_KEY_RIGHT || key == OF_KEY_LEFT) {
+        return;
+    }
     int starting_index = getCurrentPianoLayout();
     for (int i = 0; i < all_computer_keys.size(); i++) {
         if (key == all_computer_keys[i]) {
