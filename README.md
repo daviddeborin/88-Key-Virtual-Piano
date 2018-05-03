@@ -1,5 +1,7 @@
 # **88-Key Virtual Piano**  
-I created a full 88-key virtual piano that can be played with a computer keyboard. I used **C++ openFrameworks** for processing/loading graphics and sound.
+I created a full 88-key virtual piano that can be played with a computer keyboard. I used **C++ openFrameworks** for processing/loading graphics and sound.    
+
+![Computer Keyboard Layout](UsedPictures/Piano.png)
 
 ## How to Play the Virtual Piano:
 Not all computer keyboards have 88 keys, **so the virtual piano only requires 48 computer keys to be played.** As depicted in the image below, all 48 keys are within the red outline. The first key starts at the very top-left of the outline, and the last key is at the very bottom (space bar).

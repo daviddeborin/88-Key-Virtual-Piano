@@ -25,7 +25,7 @@ private:
     const int loc_5_start = 40;
     
     int x_size_of_window = 1024;
-    int y_size_of_window = 768;
+    int y_size_of_window = 120;
     
     // White key dimensions
     int white_key_bottom_radius;
