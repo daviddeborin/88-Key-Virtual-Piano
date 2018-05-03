@@ -51,6 +51,7 @@ private:
     float top_of_f;
     
     std::vector<ofSoundPlayer> key_sounds;
+    std::vector<bool> key_pressed;
     Keyboard piano_keyboard;
     ofImage piano_image;
     

@@ -10,6 +10,7 @@ void ofApp::setup() {
     // create 88 sound objects
     for (int i = 0; i < Keyboard::NUM_OF_KEYS; i++) {
         ofSoundPlayer key_sound_i;
+        key_pressed.push_back(false);
         key_sounds.push_back(key_sound_i);
     }
     
@@ -298,7 +299,8 @@ void ofApp::keyPressed(int key) {
     } else {
        int starting_index = getCurrentPianoLayout();
         for (int i = 0; i < all_computer_keys.size(); i++) {
-            if (key == all_computer_keys[i]) {
+            if (key == all_computer_keys[i] && !key_pressed[i + starting_index]) {
+                key_pressed[i + starting_index] = true;
                 piano_keyboard.piano_keys[i + starting_index].key_sound.play();
                 piano_keyboard.piano_keys[i + starting_index].key_color.set(layout_color);
                 return;
@@ -316,8 +318,10 @@ void ofApp::keyReleased(int key) {
     for (int i = 0; i < all_computer_keys.size(); i++) {
         if (key == all_computer_keys[i]) {
             if (piano_keyboard.piano_keys[i + starting_index].type == "wide") {
+                key_pressed[i + starting_index] = false;
                 piano_keyboard.piano_keys[i + starting_index].key_color.set(white);
             } else {
+                key_pressed[i + starting_index] = false;
                 piano_keyboard.piano_keys[i + starting_index].key_color.set(black);
             }
             return;

@@ -62,4 +62,4 @@ http://theremin.music.uiowa.edu/MISpiano.html
   trickiest, yet most rewarding part of the project.   
   I obtained the graphic from: http://datagenetics.com/blog/may32016/index.html
 
-  ![Piano Dimensions](Used Pictures/Edited Piano Dimensions.png)    
+  ![Piano Dimensions](UsedPictures/EditedPianoDimensions.png)    
